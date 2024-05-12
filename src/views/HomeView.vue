@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <login v-if="!isLoggedIn" @login-success="setLogin"></login>
+    <mainPage v-if="isLoggedIn"></mainPage> 
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import login from '@/components/login.vue'
+import mainPage from '@/components/mainPage.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'app',
   components: {
-    HelloWorld
+    login: login,
+    mainPage: mainPage
+  },
+  data() {
+    return {
+      isLoggedIn: sessionStorage.getItem('isLoggedIn')
+    }
+  },
+  methods: {
+    setLogin(login) {
+      this.isLoggedIn = login
+    }
   }
 }
 </script>
